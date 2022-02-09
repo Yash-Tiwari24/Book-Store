@@ -1,0 +1,39 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Index</title>
+</head>
+<body>
+    <h1>Welcome to book Store application</h1>
+    <h1>@DateTime.Now</h1>
+    <h1>Sum= @(3+5)</h1>
+    <hr />
+    <h1>MultiLine -</h1>
+    @{
+        int a = 10;
+        int b = 20;
+        int c = a + b;
+
+    }
+    <h1>@c</h1>
+
+    @{
+        int e = 4;
+    }
+
+    @if (e > 5)
+    {
+        <h1>Condition is True</h1>
+    }
+    else
+    {
+        <h1>Condition is False</h1>
+    }
+    <p>This is the home page</p>
+</body>
+</html>
