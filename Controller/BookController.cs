@@ -25,9 +25,10 @@ namespace Book_Store.Controllers
 
         }
 
-        public Book GetBook(int id)
+        public ViewResult GetBook(int id)
         {
-            return _bookRepository.GetBookById(id);
+            var data= _bookRepository.GetBookById(id);
+            return View(data);
         }
 
         public List<Book> SearchBook(string bookName,string authorName)

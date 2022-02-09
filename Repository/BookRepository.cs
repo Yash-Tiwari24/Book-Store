@@ -28,12 +28,12 @@ namespace Book_Store.Repository
         {
             return new List<Book>()
             {
-                new Book(){Id=1,Title="MVC",Author="Shivam",Description="This is the Description for MVC book"},
-                new Book(){Id=2,Title="C#",Author="Amit",Description="This is the Description for C# book"},
-                new Book(){Id=3,Title="Java",Author="Nitin",Description="This is the Description for Java book"},
-                new Book(){Id=4,Title="Php",Author="Ravi",Description="This is the Description for Php book"},
-                new Book(){Id=5,Title="Dot Net Core",Author="Sharyu",Description="This is the Description for Dot Net Core book"},
-                   new Book(){Id=6,Title="Azure DevOps",Author="Neha",Description="This is the Description for Azure Dev Ops book"},
+                new Book(){Id=1,Title="MVC",Author="Shivam",Description="This is the Description for MVC book",Category="Programming",Language="English",TotalPages=565},
+                new Book(){Id=2,Title="C#",Author="Amit",Description="This is the Description for C# book",Category="Programming",Language="English",TotalPages=1500},
+                new Book(){Id=3,Title="Java",Author="Nitin",Description="This is the Description for Java book",Category="Programming",Language="Hindi",TotalPages=715},
+                new Book(){Id=4,Title="Php",Author="Ravi",Description="This is the Description for Php book",Category="Programming",Language="English",TotalPages=1034},
+                new Book(){Id=5,Title="Dot Net Core",Author="Sharyu",Description="This is the Description for Dot Net Core book",Category="Programming",Language="English",TotalPages=1104},
+                   new Book(){Id=6,Title="Azure DevOps",Author="Neha",Description="This is the Description for Azure Dev Ops book",Category="DevOps",Language="English",TotalPages=918},
 
 
             };
