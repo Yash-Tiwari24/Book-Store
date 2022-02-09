@@ -5,25 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width"/>
+    <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body>
-    @*@for (int i = 0; i < 10; i++)
-    {
-    <h1>Welcome to book Store application @i</h1>
-    }*@
+    <img src="~/images/logo.jpg" class="logo" alt="logo"/>
+ 
+    <h1>Welcome to book Store application</h1>
+ 
 
-
-
-    @{ 
-        var list = new List<int> { 1, 2, 3, 4, 5 };
-    }
-
-    @foreach(var item in list)
-            {
-                <h1>@item</h1>
-            }
 
 
 </body>
