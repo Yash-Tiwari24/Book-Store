@@ -30,11 +30,7 @@ namespace Book_Store
             }
             app.UseStaticFiles(); //For static files like wwwroot folder files
 
-            app.UseStaticFiles(new StaticFileOptions()//For static files like MyStaticFile folder files
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "MyStaticFile")),
-                RequestPath = "/MyStaticFile"
-            });
+        
 
 
             app.UseRouting();
