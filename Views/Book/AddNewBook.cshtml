@@ -21,11 +21,16 @@
     <div asp-validation-summary="All"></div>
 
     <div class="form-group">
-        <label asp-for="MyField"></label>
-        <input asp-for="MyField" class="form-control" />
-        <span asp-validation-for="MyField" class="text-danger"></span>
+        <label asp-for="Language"></label>
+        <select asp-for="Language" class="form-control" required>
+            <option value="">please choose book language</option>
+            <option>Hindi</option>
+            <option>English</option>
+           </select>
+        <span asp-validation-for="Title" class="text-danger"></span>
 
     </div>
+
 
 
     <div class="form-group">

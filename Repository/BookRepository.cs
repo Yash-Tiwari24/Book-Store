@@ -25,6 +25,7 @@ namespace Book_Store.Repository
                 CreatedOn = DateTime.UtcNow,
                 Description = books.Description,
                 Title = books.Title,
+                Language=books.Language,
                 TotalPages = books.TotalPages,
                 UpdatedOn = DateTime.UtcNow
 

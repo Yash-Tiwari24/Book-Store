@@ -8,9 +8,9 @@ namespace Book_Store.Models
 {
     public class Book
     {
-        [DataType(DataType.DateTime)]
-        [Display(Name ="Choose Date and Time")]
-        public string MyField { get; set; }
+        //[DataType(DataType.DateTime)]
+        //[Display(Name ="Choose Date and Time")]
+        //public string MyField { get; set; }
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }

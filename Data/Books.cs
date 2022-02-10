@@ -8,7 +8,7 @@ namespace Book_Store.Data
 {
     public class Books
     {
-        public string MyField { get; set; }
+      
         public int Id { get; set; }
         [StringLength(100,MinimumLength =5)]
         [Required(ErrorMessage ="please enter the title of your book")]
