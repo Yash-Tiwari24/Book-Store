@@ -20,12 +20,13 @@ namespace Book_Store.Controllers
 
         public ViewResult GetAllBooks()
         {
-            var data= _bookRepository.GetAllBooks();
+            var data = _bookRepository.GetAllBooks();
             return View(data);
 
         }
 
-        public ViewResult GetBook(int id,string nameOfBook)
+        [Route("book-details/{id}",Name="BookDetailsRoute")]
+        public ViewResult GetBook(int id)
         {
             dynamic data = new System.Dynamic.ExpandoObject();
             data.book = _bookRepository.GetBookById(id);
