@@ -60,9 +60,24 @@ namespace Book_Store.Repository
             return books;
         }
 
-        public Book GetBookById(int id)
+        public async Task<Books> GetBookById(int id)
         {
-            return DataSource().Where(x => x.Id == id).FirstOrDefault();
+            var book = await _Context.books.FindAsync(id);
+          if(book!=null)
+            {
+                var bookDetails = new Books()
+                {
+                    Author = book.Author,
+                    Category = book.Category,
+                    Description = book.Description,
+                    Id = book.Id,
+                    Language = book.Language,
+                    Title = book.Title,
+                    TotalPages = book.TotalPages
+                };
+                return bookDetails;
+            }
+            return null;
         }
 
         public List<Book> SearchBook(string title,string authorName)

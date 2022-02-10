@@ -27,11 +27,11 @@ namespace Book_Store.Controllers
         }
 
         [Route("book-details/{id}",Name="BookDetailsRoute")]
-        public ViewResult GetBook(int id)
+        public async Task<ViewResult> GetBook(int id)
         {
             dynamic data = new System.Dynamic.ExpandoObject();
-            data.book = _bookRepository.GetBookById(id);
-            data.Name = "Nitish";
+            data.book =await _bookRepository.GetBookById(id);
+         //   data.Name = "Nitish";
             return View(data);
         }
 
