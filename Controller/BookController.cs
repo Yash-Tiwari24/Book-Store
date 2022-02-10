@@ -25,7 +25,7 @@ namespace Book_Store.Controllers
 
         }
 
-        public ViewResult GetBook(int id)
+        public ViewResult GetBook(int id,string nameOfBook)
         {
             dynamic data = new System.Dynamic.ExpandoObject();
             data.book = _bookRepository.GetBookById(id);
