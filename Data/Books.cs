@@ -8,6 +8,7 @@ namespace Book_Store.Data
 {
     public class Books
     {
+        public string MyField { get; set; }
         public int Id { get; set; }
         [StringLength(100,MinimumLength =5)]
         [Required(ErrorMessage ="please enter the title of your book")]
@@ -21,7 +22,7 @@ namespace Book_Store.Data
         public string Language { get; set; }
 
         [Required(ErrorMessage = "please enter the Total Pages of your book")]
-        [Display(Name ="Total Pages Of Book")] //Customer msg
+        [Display(Name ="Total Pages Of Book")] //Display User Msg
         public int? TotalPages { get; set; }
 
         public DateTime? CreatedOn { get; set; }
