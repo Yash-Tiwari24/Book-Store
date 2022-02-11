@@ -28,7 +28,8 @@ namespace Book_Store.Repository
                 Language = book.Language,
                 TotalPages = book.TotalPages,
                 UpdatedOn = DateTime.UtcNow,
-                CoverImageUrl = book.CoverImageUrl
+                CoverImageUrl = book.CoverImageUrl,
+                BookPdfUrl=book.BookPdfUrl
                 
 
             };
@@ -85,7 +86,8 @@ namespace Book_Store.Repository
                          Id = g.Id,
                          Name = g.Name,
                          URL = g.URL
-                     }).ToList()
+                     }).ToList(),
+                     BookPdfUrl=book.BookPdfUrl
                  }).FirstOrDefaultAsync();
         }
 
