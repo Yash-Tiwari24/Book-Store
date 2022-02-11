@@ -17,16 +17,16 @@ namespace Book_Store.Repository
             _Context = context;
         }
 
-        public async Task<int> AddNewBook(Books books) 
+        public async Task<int> AddNewBook(Book book) 
         {
             var newBook = new Books()
             {
-                Author = books.Author,
+                Author = book.Author,
                 CreatedOn = DateTime.UtcNow,
-                Description = books.Description,
-                Title = books.Title,
-                Language=books.Language,
-                TotalPages = books.TotalPages,
+                Description = book.Description,
+                Title = book.Title,
+                Language=book.Language,
+                TotalPages = book.TotalPages,
                 UpdatedOn = DateTime.UtcNow
 
             };

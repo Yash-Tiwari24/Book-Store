@@ -1,9 +1,11 @@
 ﻿using Book_Store.Data;
 using Book_Store.Models;
 using Book_Store.Repository;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,9 +15,12 @@ namespace Book_Store.Controllers
     {
 
         private readonly BookRepository _bookRepository = null;
-        public BookController(BookRepository bookRepository)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        public BookController(BookRepository bookRepository, IWebHostEnvironment webHostEnvironment)
         {
             _bookRepository = bookRepository;
+            _webHostEnvironment = webHostEnvironment;
 
         }
 
@@ -49,10 +54,18 @@ namespace Book_Store.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddNewBook(Books book)
+        public async Task<IActionResult> AddNewBook(Book book)
         {
             if(ModelState.IsValid)
             {
+                if(book.CoverPhoto!=null)
+                {
+                    string folder = "books/cover";
+                    folder += Guid.NewGuid().ToString()+"_"+book.CoverPhoto.FileName;
+                    string serverfolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+                   await book.CoverPhoto.CopyToAsync(new FileStream(serverfolder,FileMode.Create));
+                }
+
                 int id = await _bookRepository.AddNewBook(book);
                 if (id > 0)
                 {

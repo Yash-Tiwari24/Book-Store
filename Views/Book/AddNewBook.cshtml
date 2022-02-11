@@ -17,7 +17,7 @@
         </div>
     }
 
-<form method="post" asp-action="AddNewBook" asp-controller="Book">
+<form method="post" enctype="multipart/form-data" asp-action="AddNewBook" asp-controller="Book">
     <div asp-validation-summary="All"></div>
 
     <div class="form-group">
@@ -26,7 +26,7 @@
             <option value="">please choose book language</option>
             <option>Hindi</option>
             <option>English</option>
-           </select>
+        </select>
         <span asp-validation-for="Title" class="text-danger"></span>
 
     </div>
@@ -64,6 +64,15 @@
 
     </div>
 
+    <div class="form-group">
+        <label asp-for="CoverPhoto"></label>
+        <div class="custom-file">
+            <input asp-for="CoverPhoto" class="custom-file-input" id="customFile" />
+
+        </div>
+        <span asp-validation-for="CoverPhoto" class="text-danger"></span>
+
+    </div>
 
     <br />
     <div class="form-group">
