@@ -25,9 +25,11 @@ namespace Book_Store.Repository
                 CreatedOn = DateTime.UtcNow,
                 Description = book.Description,
                 Title = book.Title,
-                Language=book.Language,
+                Language = book.Language,
                 TotalPages = book.TotalPages,
-                UpdatedOn = DateTime.UtcNow
+                UpdatedOn = DateTime.UtcNow,
+                CoverImageUrl = book.CoverImageUrl
+                
 
             };
           await  _Context.books.AddAsync(newBook);
@@ -51,7 +53,9 @@ namespace Book_Store.Repository
                         Id = book.Id,
                         Language = book.Language,
                         Title = book.Title,
-                        TotalPages=book.TotalPages
+                        TotalPages=book.TotalPages,
+                        CoverImageUrl=book.CoverImageUrl
+                        
 
 
                     });
@@ -74,7 +78,9 @@ namespace Book_Store.Repository
                     Id = book.Id,
                     Language = book.Language,
                     Title = book.Title,
-                    TotalPages = book.TotalPages
+                    TotalPages = book.TotalPages,
+                    CoverImageUrl = book.CoverImageUrl
+
                 };
                 return bookDetails;
             }

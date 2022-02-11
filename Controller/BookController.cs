@@ -62,8 +62,12 @@ namespace Book_Store.Controllers
                 {
                     string folder = "books/cover";
                     folder += Guid.NewGuid().ToString()+"_"+book.CoverPhoto.FileName;
+
+                    book.CoverImageUrl = "/"+folder;
+                  
                     string serverfolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
-                   await book.CoverPhoto.CopyToAsync(new FileStream(serverfolder,FileMode.Create));
+                   
+                    await book.CoverPhoto.CopyToAsync(new FileStream(serverfolder,FileMode.Create));
                 }
 
                 int id = await _bookRepository.AddNewBook(book);

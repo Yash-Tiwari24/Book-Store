@@ -24,6 +24,7 @@ namespace Book_Store.Data
         [Required(ErrorMessage = "please enter the Total Pages of your book")]
         [Display(Name ="Total Pages Of Book")] //Display User Msg
         public int? TotalPages { get; set; }
+        public string CoverImageUrl { get; set; }
 
         public DateTime? CreatedOn { get; set; }
 

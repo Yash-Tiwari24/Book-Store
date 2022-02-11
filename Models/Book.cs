@@ -26,6 +26,7 @@ namespace Book_Store.Models
       [Display(Name ="Choose the cover photo of your book")]
         [Required]
         public IFormFile CoverPhoto { get; set; }
+        public string CoverImageUrl { get; set; }
         public DateTime? CreatedOn { get; set; }
 
         public DateTime? UpdatedOn { get; set; }
