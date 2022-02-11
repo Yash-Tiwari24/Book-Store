@@ -4,14 +4,16 @@ using Book_Store.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Book_Store.Migrations
 {
     [DbContext(typeof(BookStoreContext))]
-    partial class BookStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20220211132119_addednewgallerytable")]
+    partial class addednewgallerytable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,18 +31,18 @@ namespace Book_Store.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("BooksId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("URL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("booksId")
+                    b.Property<int>("URL")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("booksId");
+                    b.HasIndex("BooksId");
 
                     b.ToTable("BookGallery");
                 });
@@ -92,11 +94,9 @@ namespace Book_Store.Migrations
 
             modelBuilder.Entity("Book_Store.Data.BookGallery", b =>
                 {
-                    b.HasOne("Book_Store.Data.Books", "books")
+                    b.HasOne("Book_Store.Data.Books", null)
                         .WithMany("bookGallery")
-                        .HasForeignKey("booksId");
-
-                    b.Navigation("books");
+                        .HasForeignKey("BooksId");
                 });
 
             modelBuilder.Entity("Book_Store.Data.Books", b =>

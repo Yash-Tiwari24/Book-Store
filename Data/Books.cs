@@ -29,5 +29,7 @@ namespace Book_Store.Data
         public DateTime? CreatedOn { get; set; }
 
         public DateTime? UpdatedOn { get; set; }
+
+        public ICollection<BookGallery> bookGallery { get; set; }
     }
 }

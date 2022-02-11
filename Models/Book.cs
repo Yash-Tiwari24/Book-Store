@@ -22,7 +22,7 @@ namespace Book_Store.Models
         public string Category { get; set; }
         public string Language { get; set; }
         [Required]
-        public int TotalPages { get; set; }
+        public int? TotalPages { get; set; }
       [Display(Name ="Choose the cover photo of your book")]
         [Required]
         public IFormFile CoverPhoto { get; set; }
@@ -30,6 +30,17 @@ namespace Book_Store.Models
         public DateTime? CreatedOn { get; set; }
 
         public DateTime? UpdatedOn { get; set; }
+
+        [Display(Name = "Choose the gallery images of your book")]
+        [Required]
+        public IFormFileCollection GalleryFile { get; set; }
+
+        public List<GalleryModel> Gallery { get; set; }
+
+        [Display(Name = "Upload your book in pdf format")]
+        [Required]
+        public IFormFile BookPdf { get; set; }
+        public string BookPdfUrl { get; set; }
 
 
     }

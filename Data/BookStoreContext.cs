@@ -14,8 +14,9 @@ namespace Book_Store.Data
         }
         
         public DbSet<Books> books { get; set; }
+        public DbSet<BookGallery> BookGallery { get; set; }
 
-       
+
 
     }
 }

@@ -2,6 +2,7 @@
 using Book_Store.Models;
 using Book_Store.Repository;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -34,9 +35,7 @@ namespace Book_Store.Controllers
         [Route("book-details/{id}",Name="BookDetailsRoute")]
         public async Task<ViewResult> GetBook(int id)
         {
-            dynamic data = new System.Dynamic.ExpandoObject();
-            data.book =await _bookRepository.GetBookById(id);
-         //   data.Name = "Nitish";
+            var data = await _bookRepository.GetBookById(id);
             return View(data);
         }
 
@@ -61,14 +60,26 @@ namespace Book_Store.Controllers
                 if(book.CoverPhoto!=null)
                 {
                     string folder = "books/cover";
-                    folder += Guid.NewGuid().ToString()+"_"+book.CoverPhoto.FileName;
-
-                    book.CoverImageUrl = "/"+folder;
-                  
-                    string serverfolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
-                   
-                    await book.CoverPhoto.CopyToAsync(new FileStream(serverfolder,FileMode.Create));
+                   book.CoverImageUrl= await UploadImage(folder,book.CoverPhoto);
                 }
+
+                if (book.GalleryFile != null)
+                {
+                    string folder = "books/gallery";
+                    book.Gallery = new List<GalleryModel>();
+
+                    foreach (var file in book.GalleryFile)
+                    {
+                        var gallery = new GalleryModel()
+                        {
+                            Name = file.FileName,
+                            URL = await UploadImage(folder, file)
+
+                        };
+                        book.Gallery.Add(gallery);
+                }
+                }
+
 
                 int id = await _bookRepository.AddNewBook(book);
                 if (id > 0)
@@ -83,6 +94,17 @@ namespace Book_Store.Controllers
 
         }
 
+        private async Task<string> UploadImage(string folderPath,IFormFile file)
+        {
+            
+            folderPath += Guid.NewGuid().ToString() + "_" + file.FileName;
 
+        
+
+            string serverfolder = Path.Combine(_webHostEnvironment.WebRootPath, folderPath);
+
+            await file.CopyToAsync(new FileStream(serverfolder, FileMode.Create));
+            return "/" + folderPath;
+        }
     }
 }

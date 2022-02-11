@@ -32,59 +32,61 @@ namespace Book_Store.Repository
                 
 
             };
+
+            newBook.bookGallery = new List<BookGallery>();
+
+            foreach (var file in book.Gallery)
+            {
+                newBook.bookGallery.Add(new BookGallery()
+                {
+                    Name = file.Name,
+                    URL=file.URL
+                });
+            }
+
           await  _Context.books.AddAsync(newBook);
+
            await _Context.SaveChangesAsync();
 
             return newBook.Id;
         }
-        public async Task<List<Books>> GetAllBooks()
+        public async Task<List<Book>> GetAllBooks()
         {
-            var books = new List<Books>();
-            var allbooks = await _Context.books.ToListAsync();
-            if(allbooks?.Any()==true)
-            {
-                foreach (var book in allbooks)
-                {
-                    books.Add(new Books()
-                    {
-                        Author = book.Author,
-                        Category = book.Category,
-                        Description = book.Description,
-                        Id = book.Id,
-                        Language = book.Language,
-                        Title = book.Title,
-                        TotalPages=book.TotalPages,
-                        CoverImageUrl=book.CoverImageUrl
-                        
-
-
-                    });
-
-                }
-            }
-            return books;
+            return await _Context.books
+                  .Select(book => new Book()
+                  {
+                      Author = book.Author,
+                      Category = book.Category,
+                      Description = book.Description,
+                      Id = book.Id,
+                      Language = book.Language,
+                      Title = book.Title,
+                      TotalPages = book.TotalPages,
+                      CoverImageUrl = book.CoverImageUrl
+                  }).ToListAsync();
         }
 
-        public async Task<Books> GetBookById(int id)
+        public async Task<Book> GetBookById(int id)
         {
-            var book = await _Context.books.FindAsync(id);
-          if(book!=null)
-            {
-                var bookDetails = new Books()
-                {
-                    Author = book.Author,
-                    Category = book.Category,
-                    Description = book.Description,
-                    Id = book.Id,
-                    Language = book.Language,
-                    Title = book.Title,
-                    TotalPages = book.TotalPages,
-                    CoverImageUrl = book.CoverImageUrl
-
-                };
-                return bookDetails;
-            }
-            return null;
+            return await _Context.books.Where(x => x.Id == id)
+                 .Select(book => new Book()
+                 {
+                     Author = book.Author,
+                     Category = book.Category,
+                     Description = book.Description,
+                     Id = book.Id,
+                   
+                     Language = book.Language,
+                     Title = book.Title,
+                     TotalPages = book.TotalPages,
+                     CoverImageUrl = book.CoverImageUrl,
+                     Gallery = book.bookGallery.Select(g => new GalleryModel()
+                     {
+                         Id = g.Id,
+                         Name = g.Name,
+                         URL = g.URL
+                     }).ToList()
+                 }).FirstOrDefaultAsync();
         }
 
         public List<Book> SearchBook(string title,string authorName)
