@@ -27,6 +27,11 @@ namespace Book_Store.Controllers
         public ViewResult Index()
         {
 
+            var newBookAlert = new NewBookAlertConfig();
+            configuration.Bind("NewBookAlert", newBookAlert);
+
+            bool isDisplay = newBookAlert.DisplayNewBookAlert;
+
             //var newbook = configuration.GetSection("NewBookAlert");
             //var result = newbook.GetValue<bool>("DisplayNewBookAlert");
             //var bookName = newbook.GetValue<string>("BookName");
