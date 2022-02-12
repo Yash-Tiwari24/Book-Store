@@ -51,6 +51,10 @@ namespace Book_Store.Repository
 
             return newBook.Id;
         }
+
+
+
+
         public async Task<List<Book>> GetAllBooks()
         {
             return await _Context.books
@@ -65,6 +69,24 @@ namespace Book_Store.Repository
                       TotalPages = book.TotalPages,
                       CoverImageUrl = book.CoverImageUrl
                   }).ToListAsync();
+        }
+
+
+
+        public async Task<List<Book>> GetTopBooksAsync(int count)
+        {
+            return await _Context.books
+                  .Select(book => new Book()
+                  {
+                      Author = book.Author,
+                      Category = book.Category,
+                      Description = book.Description,
+                      Id = book.Id,
+                      Language = book.Language,
+                      Title = book.Title,
+                      TotalPages = book.TotalPages,
+                      CoverImageUrl = book.CoverImageUrl
+                  }).Take(count).ToListAsync();
         }
 
         public async Task<Book> GetBookById(int id)
