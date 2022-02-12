@@ -1,6 +1,7 @@
 ﻿using Book_Store.Data;
 using Book_Store.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +9,18 @@ using System.Threading.Tasks;
 
 namespace Book_Store.Repository
 {
-    public class BookRepository
+    public class BookRepository : IBookRepository
     {
-        private readonly BookStoreContext _Context=null;
+        private readonly BookStoreContext _Context = null;
+        private readonly IConfiguration _configuration;
 
-        public BookRepository(BookStoreContext context)
+        public BookRepository(BookStoreContext context,IConfiguration configuration)
         {
             _Context = context;
+            _configuration = configuration;
         }
 
-        public async Task<int> AddNewBook(Book book) 
+        public async Task<int> AddNewBook(Book book)
         {
             var newBook = new Books()
             {
@@ -29,8 +32,8 @@ namespace Book_Store.Repository
                 TotalPages = book.TotalPages,
                 UpdatedOn = DateTime.UtcNow,
                 CoverImageUrl = book.CoverImageUrl,
-                BookPdfUrl=book.BookPdfUrl
-                
+                BookPdfUrl = book.BookPdfUrl
+
 
             };
 
@@ -41,13 +44,13 @@ namespace Book_Store.Repository
                 newBook.bookGallery.Add(new BookGallery()
                 {
                     Name = file.Name,
-                    URL=file.URL
+                    URL = file.URL
                 });
             }
 
-          await  _Context.books.AddAsync(newBook);
+            await _Context.books.AddAsync(newBook);
 
-           await _Context.SaveChangesAsync();
+            await _Context.SaveChangesAsync();
 
             return newBook.Id;
         }
@@ -98,7 +101,7 @@ namespace Book_Store.Repository
                      Category = book.Category,
                      Description = book.Description,
                      Id = book.Id,
-                   
+
                      Language = book.Language,
                      Title = book.Title,
                      TotalPages = book.TotalPages,
@@ -109,11 +112,11 @@ namespace Book_Store.Repository
                          Name = g.Name,
                          URL = g.URL
                      }).ToList(),
-                     BookPdfUrl=book.BookPdfUrl
+                     BookPdfUrl = book.BookPdfUrl
                  }).FirstOrDefaultAsync();
         }
 
-        public List<Book> SearchBook(string title,string authorName)
+        public List<Book> SearchBook(string title, string authorName)
         {
             return DataSource().Where(x => x.Title.Contains(title) || x.Author.Contains(authorName)).ToList();
 
@@ -132,6 +135,11 @@ namespace Book_Store.Repository
 
 
             };
+        }
+
+        public string GetAppName()
+        {
+            return _configuration["AppName"];
         }
     }
 }
