@@ -13,6 +13,8 @@ namespace Book_Store.Controllers
     public class HomeController:Controller
     {
         private readonly NewBookAlertConfig _newBookAlertconfiguration;
+        private readonly NewBookAlertConfig _thirdPartyBookconfiguration;
+
         private readonly IMessageRepository _messageRepository;
 
         [ViewData]
@@ -21,9 +23,10 @@ namespace Book_Store.Controllers
         [ViewData]
         public string Title { get; set; }
 
-        public HomeController(IOptionsSnapshot<NewBookAlertConfig> newBookAlertconfiguration,IMessageRepository messageRepository
+        public HomeController(IOptionsSnapshot<NewBookAlertConfig> newBookAlertconfiguration,IMessageRepository messageRepository)
         {
-            _newBookAlertconfiguration = newBookAlertconfiguration.Value;
+            _newBookAlertconfiguration = newBookAlertconfiguration.Get("InternalBook");
+            _thirdPartyBookconfiguration = newBookAlertconfiguration.Get("ThirdPartyBook");
             _messageRepository = messageRepository;
         }
 
@@ -34,8 +37,10 @@ namespace Book_Store.Controllers
          
 
             bool isDisplay = _newBookAlertconfiguration.DisplayNewBookAlert;
+            bool isDisplay1= _thirdPartyBookconfiguration.DisplayNewBookAlert;
 
-            var value = _messageRepository.GetName();
+
+            //var value = _messageRepository.GetName();
 
             //var newbook = configuration.GetSection("NewBookAlert");
             //var result = newbook.GetValue<bool>("DisplayNewBookAlert");
