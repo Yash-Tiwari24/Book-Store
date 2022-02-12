@@ -26,13 +26,19 @@ namespace Book_Store.Controllers
 
         public ViewResult Index()
         {
-            var result = configuration["AppName"];
-            var key1 = configuration["infoObj:key1"];
-            var key2 = configuration["infoObj:key2"];
-            var key3 = configuration["infoObj:key3:key3obj1"];
-            CustomProperty = "Custom Value";
-            Title = "Home Page From Controller";
-           //ViewBag.Title = 123;
+
+            //var newbook = configuration.GetSection("NewBookAlert");
+            //var result = newbook.GetValue<bool>("DisplayNewBookAlert");
+            //var bookName = newbook.GetValue<string>("BookName");
+
+
+            //var result = configuration["AppName"];
+            //var key1 = configuration["infoObj:key1"];
+            //var key2 = configuration["infoObj:key2"];
+            //var key3 = configuration["infoObj:key3:key3obj1"];
+            //CustomProperty = "Custom Value";
+            //Title = "Home Page From Controller";
+            //ViewBag.Title = 123;
             return View();
         }
 
