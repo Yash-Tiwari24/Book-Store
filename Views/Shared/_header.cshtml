@@ -1,11 +1,8 @@
-﻿@inject IConfiguration _configuration
-@using Microsoft.Extensions.Configuration
-@{
-    var newbook = new NewBookAlertConfig();
-    _configuration.Bind("NewBookAlert", newbook);
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration _configuration
+@inject Microsoft.Extensions.Options.IOptionsSnapshot<NewBookAlertConfig> _newBookAlertconfiguration
 
 
-            }
 
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -49,10 +46,10 @@
         </div>
     </nav>
 
-    @if (newbook.DisplayNewBookAlert)
+    @if (_newBookAlertconfiguration.Value.DisplayNewBookAlert)
     {
         <div class="alert alert-info" role="alert">
-            @newbook.BookName
+            @_newBookAlertconfiguration.Value.BookName
         </div>
     }
 

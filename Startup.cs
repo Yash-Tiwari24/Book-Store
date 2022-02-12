@@ -1,4 +1,5 @@
 using Book_Store.Data;
+using Book_Store.Models;
 using Book_Store.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,6 +33,10 @@ namespace Book_Store
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddScoped<IBookRepository, BookRepository>();
+            services.AddSingleton<IMessageRepository, MessageRepository>();
+
+            services.Configure<NewBookAlertConfig>(_configuration.GetSection("NewBookAlert"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

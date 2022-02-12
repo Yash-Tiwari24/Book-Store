@@ -1,6 +1,8 @@
 ﻿using Book_Store.Models;
+using Book_Store.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,8 @@ namespace Book_Store.Controllers
 {
     public class HomeController:Controller
     {
-        private readonly IConfiguration configuration;
+        private readonly NewBookAlertConfig _newBookAlertconfiguration;
+        private readonly IMessageRepository _messageRepository;
 
         [ViewData]
         public string CustomProperty { get; set; }
@@ -18,19 +21,21 @@ namespace Book_Store.Controllers
         [ViewData]
         public string Title { get; set; }
 
-        public HomeController(IConfiguration _configuration)
+        public HomeController(IOptionsSnapshot<NewBookAlertConfig> newBookAlertconfiguration,IMessageRepository messageRepository
         {
-            configuration = _configuration;
+            _newBookAlertconfiguration = newBookAlertconfiguration.Value;
+            _messageRepository = messageRepository;
         }
 
 
         public ViewResult Index()
         {
 
-            var newBookAlert = new NewBookAlertConfig();
-            configuration.Bind("NewBookAlert", newBookAlert);
+         
 
-            bool isDisplay = newBookAlert.DisplayNewBookAlert;
+            bool isDisplay = _newBookAlertconfiguration.DisplayNewBookAlert;
+
+            var value = _messageRepository.GetName();
 
             //var newbook = configuration.GetSection("NewBookAlert");
             //var result = newbook.GetValue<bool>("DisplayNewBookAlert");
