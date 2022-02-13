@@ -44,6 +44,11 @@ namespace Book_Store
 
 
             });
+
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.LoginPath = _configuration["Application:LoginPath"];
+            });
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddScoped<IBookRepository, BookRepository>();
