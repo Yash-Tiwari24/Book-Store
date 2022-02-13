@@ -1,6 +1,7 @@
 ﻿using Book_Store.Data;
 using Book_Store.Models;
 using Book_Store.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,7 @@ namespace Book_Store.Controllers
             return _bookRepository.SearchBook(bookName, authorName);
         }
 
+        [Authorize]
         public ViewResult AddNewBook(bool isSuccess=false,int bookId=0)
         {
             ViewBag.IsSuccess = isSuccess;
