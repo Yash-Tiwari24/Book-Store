@@ -1,12 +1,8 @@
 ﻿using Book_Store.Models;
 using Book_Store.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Webgentle.BookStore.Service;
 
 namespace Book_Store.Controllers
 {
@@ -16,6 +12,7 @@ namespace Book_Store.Controllers
         private readonly NewBookAlertConfig _thirdPartyBookconfiguration;
 
         private readonly IMessageRepository _messageRepository;
+        private readonly IUserService _userService;
 
         [ViewData]
         public string CustomProperty { get; set; }
@@ -23,18 +20,21 @@ namespace Book_Store.Controllers
         [ViewData]
         public string Title { get; set; }
 
-        public HomeController(IOptionsSnapshot<NewBookAlertConfig> newBookAlertconfiguration,IMessageRepository messageRepository)
+        public HomeController(IOptionsSnapshot<NewBookAlertConfig> newBookAlertconfiguration,IMessageRepository messageRepository,
+            IUserService userService)
         {
             _newBookAlertconfiguration = newBookAlertconfiguration.Get("InternalBook");
             _thirdPartyBookconfiguration = newBookAlertconfiguration.Get("ThirdPartyBook");
             _messageRepository = messageRepository;
+            _userService = userService;
         }
 
 
         public ViewResult Index()
         {
 
-         
+            var userId = _userService.GetUserId();
+            var isLoggedIn = _userService.IsAuthenticated();
 
             bool isDisplay = _newBookAlertconfiguration.DisplayNewBookAlert;
             bool isDisplay1= _thirdPartyBookconfiguration.DisplayNewBookAlert;
